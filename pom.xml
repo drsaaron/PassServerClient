@@ -3,18 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>PassServerClient</artifactId>
-    <version>1.0.13-RELEASE</version>
+    <version>1.1-RELEASE</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>25</maven.compiler.release>
         <exec.mainClass>com.blazartech.passserverclient.PassServerClient</exec.mainClass>
     </properties>
-    
+
     <parent>
-        <groupId>com.blazartech</groupId>
-        <artifactId>blazarjavaparent</artifactId>
-        <version>1.0.20-RELEASE</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.0.0-M3</version>
     </parent>
     
     <dependencies>
@@ -50,6 +50,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+	    <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.1</version>
+                <configuration>
+                    <compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                        <arg>-proc:full</arg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
         </plugins>
     </build>
