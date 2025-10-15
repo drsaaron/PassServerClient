@@ -1,6 +1,6 @@
 #! /bin/sh
 
 SOCKET=/tmp/my_pass_socket
-message='{ "action": "GET", "dbUser": "aar1069", "resource": "test" }'
+message='{ "action": "GET", "dbUser": "scott", "resource": "test" }'
 
 echo $message | nc -U $SOCKET | jq

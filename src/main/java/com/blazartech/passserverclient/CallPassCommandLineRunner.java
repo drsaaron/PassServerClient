@@ -26,7 +26,7 @@ public class CallPassCommandLineRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("calling the server");
         
-        ServiceResponse response = client.getPassword("test", "aar1069");
+        ServiceResponse response = client.getPassword("test", "scott");
         log.info("response = {}", response);
     }
     
