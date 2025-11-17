@@ -43,7 +43,7 @@ def handleConnection(connection):
         data = connection.recv(1024)
         if not data:
             return
-        logMessage('Received data:' + data.decode())
+        logMessage('Received request:' + data.decode())
         
         requestObject = json.loads(data)
         

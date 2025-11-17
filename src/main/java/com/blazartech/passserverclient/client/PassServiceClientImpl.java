@@ -4,7 +4,6 @@
  */
 package com.blazartech.passserverclient.client;
 
-import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.StandardProtocolFamily;
 import java.net.UnixDomainSocketAddress;
@@ -13,7 +12,6 @@ import java.nio.channels.SocketChannel;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
 
@@ -25,18 +23,11 @@ import tools.jackson.databind.ObjectMapper;
 @Slf4j
 public class PassServiceClientImpl implements PassServiceClient {
 
-    @Value("${pass.socketPath}")
-    private String socketPath;
-
-    private UnixDomainSocketAddress socketAddress;
+    @Autowired
+    private UnixDomainSocketAddress unixSocket;
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @PostConstruct
-    private void setupSocket() {
-        socketAddress = UnixDomainSocketAddress.of(socketPath);
-    }
 
     private static final int BUFFER_SIZE = 1024;
 
@@ -56,7 +47,7 @@ public class PassServiceClientImpl implements PassServiceClient {
         try {
             // access the Unix socket
             SocketChannel channel = SocketChannel.open(StandardProtocolFamily.UNIX);
-            channel.connect(socketAddress);
+            channel.connect(unixSocket);
 
             // send message
             sendSocketMessage(channel, requestJson);
