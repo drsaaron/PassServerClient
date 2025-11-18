@@ -4,8 +4,8 @@
  */
 package com.blazartech.passserverclient.client;
 
+import jakarta.inject.Provider;
 import java.io.IOException;
-import java.net.StandardProtocolFamily;
 import java.net.UnixDomainSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -28,6 +28,9 @@ public class PassServiceClientImpl implements PassServiceClient {
 
     @Autowired
     private ObjectMapper objectMapper;
+    
+    @Autowired
+    private Provider<SocketChannel> channelProvider;
 
     private static final int BUFFER_SIZE = 1024;
 
@@ -36,9 +39,7 @@ public class PassServiceClientImpl implements PassServiceClient {
         log.info("requesting password for resource {} and user {}", resource, dbUser);
 
         // build the request
-        ServiceRequest request = new ServiceRequest();
-        request.setDbUser(dbUser);
-        request.setResource(resource);
+        ServiceRequest request = new ServiceRequest(resource, dbUser);
 
         // convert to json
         String requestJson = objectMapper.writeValueAsString(request);
@@ -46,7 +47,7 @@ public class PassServiceClientImpl implements PassServiceClient {
         // send to the unix socket and read response string.  based on https://www.baeldung.com/java-unix-domain-socket
         try {
             // access the Unix socket
-            SocketChannel channel = SocketChannel.open(StandardProtocolFamily.UNIX);
+            SocketChannel channel = channelProvider.get();
             channel.connect(unixSocket);
 
             // send message
