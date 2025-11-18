@@ -5,6 +5,7 @@
 package com.blazartech.passserverclient.client;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,18 +16,12 @@ import lombok.Setter;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class ServiceRequest {
     
     @Setter(AccessLevel.NONE)
     private final String action = "GET";
     
     private String resource;
-    private String dbUser;
-
-    public ServiceRequest(String resource, String dbUser) {
-        this.resource = resource;
-        this.dbUser = dbUser;
-    }
-    
-    
+    private String dbUser;    
 }
