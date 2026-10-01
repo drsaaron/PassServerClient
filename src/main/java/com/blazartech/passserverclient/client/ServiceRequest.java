@@ -4,24 +4,19 @@
  */
 package com.blazartech.passserverclient.client;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 /**
  *
  * @author aar1069
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ServiceRequest {
-    
-    @Setter(AccessLevel.NONE)
-    private final String action = "GET";
-    
-    private String resource;
-    private String dbUser;    
+public record ServiceRequest (
+        String action,
+        String resource,
+        String dbUser
+        ){
+
+    public ServiceRequest(String resource, String dbUser) {
+        this("GET", resource, dbUser);
+    }
+
+        
 }

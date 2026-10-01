@@ -60,8 +60,8 @@ public class PassServiceClientImpl implements PassServiceClient {
                 ServiceResponse response = objectMapper.readValue(responseJson, ServiceResponse.class);
 
                 // is there an error?
-                if (response.getError() != null) {
-                    throw new RuntimeException("service error: " + response.getError());
+                if (response.error() != null) {
+                    throw new RuntimeException("service error: " + response.error());
                 }
                 return response;
             } else {

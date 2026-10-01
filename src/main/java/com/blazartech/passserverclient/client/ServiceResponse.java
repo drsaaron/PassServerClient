@@ -4,17 +4,10 @@
  */
 package com.blazartech.passserverclient.client;
 
-import lombok.Data;
-
 /**
  *
  * @author aar1069
  */
-@Data
-public class ServiceResponse {
+public record ServiceResponse (String resource, String dbUser, String password, String error) {
     
-    private String resource;
-    private String dbUser;
-    private String password;
-    private String error;
 }
